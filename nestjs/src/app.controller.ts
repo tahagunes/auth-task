@@ -16,4 +16,9 @@ export class AppController {
     private readonly userService: UserService,
   ) { }
 
+@Get()
+getHello(){
+  return 'ne bu';
+}
+
 }
