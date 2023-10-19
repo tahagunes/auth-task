@@ -29,8 +29,13 @@ let UserController = class UserController {
     findAll() {
         return this.userService.findAll();
     }
-    findOne(id) {
-        return this.userService.findOne(id);
+    async findOne(id) {
+        const user = await this.userService.findOne(id);
+        if (!user) {
+            throw new common_1.NotFoundException(`User with ${id} does not exist.`);
+        }
+        console.log(!user, "bişe olmadı");
+        return user;
     }
     update(id, updateUserDto) {
         return this.userService.update(id, updateUserDto);
@@ -61,7 +66,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),

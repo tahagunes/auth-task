@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe ,NotFoundException} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -24,8 +24,13 @@ export class UserController {
 
   @Get(':id')
   @ApiCreatedResponse({ type: UserEntity, isArray: true })
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.findOne(id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const user = await this.userService.findOne(id);
+    if (!user) {
+      throw new NotFoundException(`User with ${id} does not exist.`);
+    }
+    console.log(!user,"bişe olmadı")
+    return user;
   }
 
   @Patch(':id')

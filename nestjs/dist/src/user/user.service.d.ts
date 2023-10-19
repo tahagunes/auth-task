@@ -14,7 +14,11 @@ export declare class UserService {
         email: string;
         password: string;
     }[]>;
-    findOne(id: number): string;
+    findOne(id: number): import(".prisma/client").Prisma.Prisma__UserClient<{
+        id: number;
+        email: string;
+        password: string;
+    }, null, import("@prisma/client/runtime/library").DefaultArgs>;
     update(id: number, updateUserDto: UpdateUserDto): import(".prisma/client").Prisma.Prisma__UserClient<{
         id: number;
         email: string;

@@ -14,7 +14,11 @@ export declare class UserController {
         email: string;
         password: string;
     }[]>;
-    findOne(id: number): string;
+    findOne(id: number): Promise<{
+        id: number;
+        email: string;
+        password: string;
+    }>;
     update(id: number, updateUserDto: UpdateUserDto): import(".prisma/client").Prisma.Prisma__UserClient<{
         id: number;
         email: string;

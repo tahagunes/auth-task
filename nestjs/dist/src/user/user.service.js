@@ -23,7 +23,7 @@ let UserService = class UserService {
         return this.prisma.user.findMany();
     }
     findOne(id) {
-        return `This action returns a #${id} user`;
+        return this.prisma.user.findUnique({ where: { id: id } });
     }
     update(id, updateUserDto) {
         return this.prisma.user.update({
