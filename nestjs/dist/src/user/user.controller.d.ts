@@ -14,11 +14,11 @@ export declare class UserController {
         email: string;
         password: string;
     }[]>;
-    findOne(id: string): string;
-    update(id: string, updateUserDto: UpdateUserDto): import(".prisma/client").Prisma.Prisma__UserClient<{
+    findOne(id: number): string;
+    update(id: number, updateUserDto: UpdateUserDto): import(".prisma/client").Prisma.Prisma__UserClient<{
         id: number;
         email: string;
         password: string;
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
-    remove(id: string): string;
+    remove(id: number): string;
 }
