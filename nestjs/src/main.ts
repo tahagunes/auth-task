@@ -9,6 +9,7 @@ async function bootstrap() {
     .setTitle('OTG')
     .setDescription('Osman Taha Güneş')
     .setVersion('1.0')
+    .addBearerAuth()
     .addTag('default')
     .build();
   const document = SwaggerModule.createDocument(app, config);

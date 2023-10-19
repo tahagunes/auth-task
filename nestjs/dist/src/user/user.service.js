@@ -9,14 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserService = void 0;
+exports.UserService = exports.roundsOfHashing = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const bcrypt = require("bcrypt");
+exports.roundsOfHashing = 10;
 let UserService = class UserService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    create(createUserDto) {
+    async create(createUserDto) {
+        const hashedPassword = await bcrypt.hash(createUserDto.password, exports.roundsOfHashing);
+        createUserDto.password = hashedPassword;
         return this.prisma.user.create({ data: createUserDto });
     }
     findAll() {
@@ -25,7 +29,10 @@ let UserService = class UserService {
     findOne(id) {
         return this.prisma.user.findUnique({ where: { id: id } });
     }
-    update(id, updateUserDto) {
+    async update(id, updateUserDto) {
+        if (updateUserDto.password) {
+            updateUserDto.password = await bcrypt.hash(updateUserDto.password, exports.roundsOfHashing);
+        }
         return this.prisma.user.update({
             where: { id },
             data: updateUserDto,

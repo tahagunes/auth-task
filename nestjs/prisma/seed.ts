@@ -1,37 +1,35 @@
 // prisma/seed.ts
 
 import { PrismaClient } from '@prisma/client';
-
+import * as bcrypt from 'bcrypt';
 // initialize Prisma Client
 const prisma = new PrismaClient();
-
+const roundsOfHashing = 10;
 async function main() {
-    // create two dummy articles
-    // const post1 = await prisma.user.upsert({
-    //     where: { title: 'Prisma Adds Support for MongoDB' },
-    //     update: {},
-    //     create: {
-    //         title: 'Prisma Adds Support for MongoDB',
-    //         body: 'Support for MongoDB has been one of the most requested features since the initial release of...',
-    //         description:
-    //             "We are excited to share that today's Prisma ORM release adds stable support for MongoDB!",
-    //         published: false,
-    //     },
-    // });
+    const passwordSabin = await bcrypt.hash('password-sabin', roundsOfHashing);
+    const passwordAlex = await bcrypt.hash('password-alex', roundsOfHashing);
 
-    // const post2 = await prisma.article.upsert({
-    //     where: { title: "What's new in Prisma? (Q1/22)" },
-    //     update: {},
-    //     create: {
-    //         title: "What's new in Prisma? (Q1/22)",
-    //         body: 'Our engineers have been working hard, issuing new releases with many improvements...',
-    //         description:
-    //             'Learn about everything in the Prisma ecosystem and community from January to March 2022.',
-    //         published: true,
-    //     },
-    // });
+    const user1 = await prisma.user.upsert({
+        where: { email: 'sabin@adams.com' },
+        update: {
+            password: passwordSabin,
+        },
+        create: {
+            email: 'sabin@adams.com',
+            password: passwordSabin,
+        },
+    });
 
-    // console.log({ post1, post2 });
+    const user2 = await prisma.user.upsert({
+        where: { email: 'alex@ruheni.com' },
+        update: {
+            password: passwordAlex,
+        },
+        create: {
+            email: 'alex@ruheni.com',
+            password: passwordAlex,
+        },
+    });
 }
 
 // execute the main function

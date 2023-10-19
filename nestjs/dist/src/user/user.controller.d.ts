@@ -4,11 +4,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
-    create(createUserDto: CreateUserDto): import(".prisma/client").Prisma.Prisma__UserClient<{
+    create(createUserDto: CreateUserDto): Promise<{
         id: number;
         email: string;
         password: string;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs>;
+    }>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<{
         id: number;
         email: string;
@@ -19,10 +19,10 @@ export declare class UserController {
         email: string;
         password: string;
     }>;
-    update(id: number, updateUserDto: UpdateUserDto): import(".prisma/client").Prisma.Prisma__UserClient<{
+    update(id: number, updateUserDto: UpdateUserDto): Promise<{
         id: number;
         email: string;
         password: string;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs>;
+    }>;
     remove(id: number): string;
 }
