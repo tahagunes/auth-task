@@ -17,6 +17,7 @@ let AppController = class AppController {
         this.userService = userService;
     }
     getHello() {
+        console.log("servera istek geldi");
         return 'ne bu';
     }
 };

@@ -18,6 +18,7 @@ export class AppController {
 
 @Get()
 getHello(){
+  console.log("servera istek geldi");
   return 'ne bu';
 }
 
