@@ -11,33 +11,38 @@ export class PostsController {
 
   @Post()
   @ApiCreatedResponse({ type: PostEntity })
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+  async create(@Body() createPostDto: CreatePostDto) {
+    return new PostEntity(
+      await this.postsService.create(createPostDto),
+    );
   }
 
   @Get()
   @ApiOkResponse({ type: PostEntity, isArray: true })
-  findAll() {
-    return this.postsService.findAll();
+  async findAll() {
+    const posts = await this.postsService.findAll();
+    return posts.map((post) => new PostEntity(post));
   }
 
   @Get(':id')
   @ApiOkResponse({ type: PostEntity })
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.postsService.findOne(id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return new PostEntity(await this.postsService.findOne(id));
   }
 
   @Patch(':id')
   @ApiCreatedResponse({ type: PostEntity })
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(id, updatePostDto);
+      return new PostEntity(
+        await this.postsService.update(id, updatePostDto),
+      );
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: PostEntity })
-  remove(@Param('id',ParseIntPipe) id: number) {
-    return this.postsService.remove(id);
+  async remove(@Param('id',ParseIntPipe) id: number) {
+    return new PostEntity(await this.postsService.remove(id));
   }
 }

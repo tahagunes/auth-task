@@ -11,7 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEntity = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const class_transformer_1 = require("class-transformer");
 class UserEntity {
+    constructor(partial) {
+        Object.assign(this, partial);
+    }
 }
 exports.UserEntity = UserEntity;
 __decorate([
@@ -31,7 +35,7 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "email", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, class_transformer_1.Exclude)(),
     __metadata("design:type", String)
 ], UserEntity.prototype, "password", void 0);
 //# sourceMappingURL=user.entity.js.map

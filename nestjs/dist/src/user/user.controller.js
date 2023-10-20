@@ -24,11 +24,12 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    create(createUserDto) {
-        return this.userService.create(createUserDto);
+    async create(createUserDto) {
+        return new user_entity_1.UserEntity(await this.userService.create(createUserDto));
     }
-    findAll() {
-        return this.userService.findAll();
+    async findAll() {
+        const users = await this.userService.findAll();
+        return users.map((user) => new user_entity_1.UserEntity(user));
     }
     async findOne(id) {
         const user = await this.userService.findOne(id);
@@ -36,12 +37,12 @@ let UserController = class UserController {
             throw new common_1.NotFoundException(`User with ${id} does not exist.`);
         }
         console.log(!user, "bişe olmadı");
-        return user;
+        return new user_entity_1.UserEntity(await this.userService.findOne(id));
     }
-    update(id, updateUserDto) {
-        return this.userService.update(id, updateUserDto);
+    async update(id, updateUserDto) {
+        return new user_entity_1.UserEntity(await this.userService.update(id, updateUserDto));
     }
-    remove(id) {
+    async remove(id) {
         return this.userService.remove(id);
     }
 };
@@ -52,7 +53,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
@@ -61,7 +62,7 @@ __decorate([
     (0, swagger_1.ApiCreatedResponse)({ type: user_entity_1.UserEntity, isArray: true }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -82,7 +83,7 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, update_user_dto_1.UpdateUserDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
@@ -92,7 +93,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "remove", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),

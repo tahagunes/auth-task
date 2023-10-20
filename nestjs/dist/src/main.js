@@ -8,6 +8,7 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors();
     app.useGlobalPipes(new common_1.ValidationPipe({ whitelist: true }));
+    app.useGlobalInterceptors(new common_1.ClassSerializerInterceptor(app.get(core_1.Reflector)));
     const config = new swagger_1.DocumentBuilder()
         .setTitle('OTG')
         .setDescription('Osman Taha Güneş')
