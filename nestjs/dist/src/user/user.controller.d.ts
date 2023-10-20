@@ -8,21 +8,29 @@ export declare class UserController {
         id: number;
         email: string;
         password: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<{
         id: number;
         email: string;
         password: string;
+        createdAt: Date;
+        updatedAt: Date;
     }[]>;
     findOne(id: number): Promise<{
         id: number;
         email: string;
         password: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     update(id: number, updateUserDto: UpdateUserDto): Promise<{
         id: number;
         email: string;
         password: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     remove(id: number): string;
 }

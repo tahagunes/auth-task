@@ -9,21 +9,29 @@ export declare class UserService {
         id: number;
         email: string;
         password: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<{
         id: number;
         email: string;
         password: string;
+        createdAt: Date;
+        updatedAt: Date;
     }[]>;
     findOne(id: number): import(".prisma/client").Prisma.Prisma__UserClient<{
         id: number;
         email: string;
         password: string;
+        createdAt: Date;
+        updatedAt: Date;
     }, null, import("@prisma/client/runtime/library").DefaultArgs>;
     update(id: number, updateUserDto: UpdateUserDto): Promise<{
         id: number;
         email: string;
         password: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     remove(id: number): string;
 }

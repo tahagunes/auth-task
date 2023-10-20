@@ -32,8 +32,8 @@ function Login() {
         })
             .then((response) => response.json()) // response.text() kullanarak içeriği alın
             .then((data) => { console.log("accesToken ", data.accessToken); })
-            .catch((error) => {console.log(error); return;});
-            
+            .catch((error) => { console.log(error); return; });
+
 
     };
     return (
@@ -42,16 +42,16 @@ function Login() {
                 <div>
                     <label>Email</label>
                     <input type="text"
-                     value={email} 
-                     onChange={e => setEmail(e.target.value)} 
-                    required />
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        required />
                 </div>
                 <div>
                     <label>Password</label>
                     <input type="text"
-                     value={password} 
-                     onChange={e => setPassword(e.target.value)} 
-                    required />
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        required />
                 </div>
                 <div>
                     <input type="submit" />
