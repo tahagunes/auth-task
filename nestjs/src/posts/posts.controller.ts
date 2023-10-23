@@ -18,7 +18,7 @@ export class PostsController {
   async create(@Body() createPostDto: CreatePostDto) {
     const checkPostOwnerId = await this.authService.findAuthUserId();
     if(checkPostOwnerId===-1){
-
+      return "User didn't login";
     }
     else{
       createPostDto.authorId=checkPostOwnerId;
