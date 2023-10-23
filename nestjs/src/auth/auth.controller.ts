@@ -14,7 +14,7 @@ export class AuthController {
   @Post('login')
   @ApiOkResponse({ type: AuthEntity })
   login(@Body() { email, password }: LoginDto) {
-    console.log("autha login istek geldi",email,password);
+    console.log("autha controllera login istek geldi",email,password);
     return this.authService.login(email, password);
   }
 }

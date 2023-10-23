@@ -15,6 +15,7 @@ export const jwtSecret = 'zjP9h6ZI5LoSKCRj';
     PrismaModule,
     PassportModule,
     JwtModule.register({
+      global: true,
       secret: jwtSecret,
       signOptions: { expiresIn: '1d' }, // e.g. 7d, 24h
     }),

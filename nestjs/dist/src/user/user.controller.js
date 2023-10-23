@@ -49,6 +49,8 @@ let UserController = class UserController {
 exports.UserController = UserController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiCreatedResponse)({ type: user_entity_1.UserEntity }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
