@@ -9,5 +9,11 @@ export declare class UserController {
     findAll(): Promise<UserEntity[]>;
     findOne(id: number): Promise<UserEntity>;
     update(id: number, updateUserDto: UpdateUserDto): Promise<UserEntity>;
-    remove(id: number): Promise<string>;
+    remove(id: number): Promise<{
+        id: number;
+        email: string;
+        password: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
 }

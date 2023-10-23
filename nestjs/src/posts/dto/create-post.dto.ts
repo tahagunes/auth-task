@@ -9,6 +9,9 @@ import {
 } from 'class-validator';
 
 export class CreatePostDto {
+
+    authorId: number;
+    
     @IsString()
     @IsNotEmpty()
     @MinLength(5)

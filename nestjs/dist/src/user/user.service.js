@@ -39,7 +39,7 @@ let UserService = class UserService {
         });
     }
     remove(id) {
-        return `This action removes a #${id} user`;
+        return this.prisma.user.delete({ where: { id } });
     }
 };
 exports.UserService = UserService;

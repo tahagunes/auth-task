@@ -33,5 +33,11 @@ export declare class UserService {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    remove(id: number): string;
+    remove(id: number): import(".prisma/client").Prisma.Prisma__UserClient<{
+        id: number;
+        email: string;
+        password: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }, never, import("@prisma/client/runtime/library").DefaultArgs>;
 }

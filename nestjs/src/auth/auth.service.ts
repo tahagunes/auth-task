@@ -8,8 +8,11 @@ import { PrismaService } from './../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { AuthEntity } from './entity/auth.entity';
 import * as bcrypt from 'bcrypt';
+    let userId: string;
+
 @Injectable()
 export class AuthService {
+    authUserId: number;
     constructor(private prisma: PrismaService, private jwtService: JwtService) { }
 
     async login(email: string, password: string): Promise<AuthEntity> {
@@ -28,11 +31,20 @@ export class AuthService {
         if (!isPasswordValid) {
             throw new UnauthorizedException('Invalid password');
         }
-
+        this.authUserId = user.id;
         // Step 3: Generate a JWT containing the user's ID and return it
         return {
             accessToken: this.jwtService.sign({ userId: user.id }),
             userID: user.id,
         };
+    }
+
+    async findAuthUserId(){
+        if(this.authUserId){
+            return this.authUserId;
+        }
+        else{
+            return -1;
+        }        
     }
 }

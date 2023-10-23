@@ -25,6 +25,6 @@ export class PostsService {
   }
 
   remove(id: number) {
-    return this.prisma.user.delete({where: {id}});
+    return this.prisma.post.delete({where: {id}});
   }
 }

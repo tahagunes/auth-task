@@ -16,7 +16,8 @@ export class UserController {
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: UserEntity })
   async create(@Body() createUserDto: CreateUserDto) {
-    return new UserEntity(await this.userService.create(createUserDto));
+    return new UserEntity(
+      await this.userService.create(createUserDto));
   }
 
   @Get()
