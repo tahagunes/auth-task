@@ -9,7 +9,7 @@ import { AuthService } from 'src/auth/auth.service';
 @Controller('posts')
 @ApiTags('posts')
 export class PostsController {
-  constructor(private postsService: PostsService,private readonly authService: AuthService) { }
+  constructor(private postsService: PostsService, private readonly authService: AuthService) { }
 
   @Post()
   @UseGuards(JwtAuthGuard)
@@ -17,22 +17,22 @@ export class PostsController {
   @ApiCreatedResponse({ type: PostEntity })
   async create(@Body() createPostDto: CreatePostDto) {
     const checkPostOwnerId = await this.authService.findAuthUserId();
-    if(checkPostOwnerId===-1){
+    if (checkPostOwnerId === -1) {
       return "User didn't login";
     }
-    else{
-      createPostDto.authorId=checkPostOwnerId;
+    else {
+      createPostDto.authorId = checkPostOwnerId;
       console.log(createPostDto)
       return new PostEntity(
         await this.postsService.create(createPostDto),
       );
     }
-    
+
   }
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
+  // @ApiBearerAuth()
   @ApiOkResponse({ type: PostEntity, isArray: true })
   async findAll() {
     const posts = await this.postsService.findAll();
@@ -55,18 +55,15 @@ export class PostsController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updatePostDto: UpdatePostDto) {
     //console.log((await this.authService.findAuthUserId()));
-      const postOwnerId = (await this.postsService.findOne(id)).authorId;
-      const checkPostOwnerId = await this.authService.findAuthUserId();
-      if(postOwnerId===checkPostOwnerId){
-        return new PostEntity(
-          await this.postsService.update(id, updatePostDto),
-        );
-      }
-      else{
-        //console.log(postOwnerId," - ",this.authService.findAuthUserId());
-        return "The user has no access for post";
-      }
-    
+    const postOwnerId = (await this.postsService.findOne(id)).authorId;
+    const checkPostOwnerId = await this.authService.findAuthUserId();
+    if (postOwnerId === checkPostOwnerId) {
+      return await this.postsService.update(id, updatePostDto);
+    }
+    else {
+      //console.log(postOwnerId," - ",this.authService.findAuthUserId());
+      return "The user has no access for post";
+    }
   }
 
   @Delete(':id')
