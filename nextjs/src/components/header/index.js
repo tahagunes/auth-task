@@ -9,22 +9,16 @@ export function Header() {
         logout();
     };
     return (
-        <header>
+        <header style={{ backgroundColor: 'red' }}>
             <div>
                 <Link href="/">Logo</Link>
             </div>
             <nav>
                 {auth ? (
-                    <div>
-                        <div>
-                            <Link href="/posts">Posts</Link>
-                        </div>
-                        <div>
-                            <Link href="/users">Users</Link>
-                        </div>
-                        <div>
-                            <Button onClick={handleLogout}>Log Out</Button>
-                        </div>
+                    <div style={{ flexDirection: "row", padding: 10 }}>
+                        <Link style={{paddingLeft:10}}href="/posts">Posts</Link>
+                        <Link style={{paddingLeft:10}}href="/users">Users</Link>                        
+                        <Link style={{paddingLeft:10}}onClick={handleLogout}href="/login">Log Out</Link>
                     </div>
                 ) : (
                     <Link href="/login">Login</Link>
