@@ -1,9 +1,13 @@
+'use client'
 import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
+export function Header() {
+    const { auth, logout } = useAuth();
 
-export async function Header() {
-    const auth = await useAuth.fromServer();
-
+    const handleLogout = () => {
+        logout();
+    };
     return (
         <header>
             <div>
@@ -11,7 +15,17 @@ export async function Header() {
             </div>
             <nav>
                 {auth ? (
-                    <Link href="/panel">Panel (Protected Route)</Link>
+                    <div>
+                        <div>
+                            <Link href="/posts">Posts</Link>
+                        </div>
+                        <div>
+                            <Link href="/users">Users</Link>
+                        </div>
+                        <div>
+                            <Button onClick={handleLogout}>Log Out</Button>
+                        </div>
+                    </div>
                 ) : (
                     <Link href="/login">Login</Link>
                 )}

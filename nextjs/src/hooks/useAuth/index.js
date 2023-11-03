@@ -27,11 +27,17 @@ export function useAuth() {
         setAuth(verifiedToken);
     };
 
+    const logout = () => {
+        const cookies = new Cookies();
+        cookies.remove("token");
+        setAuth(null);
+    };
+
+
     React.useEffect(() => {
         getVerifiedtoken();
     }, []);
-
-    return auth;
+    return { auth, logout };
 }
 
 useAuth.fromServer = fromServer;
