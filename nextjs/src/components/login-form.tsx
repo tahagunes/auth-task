@@ -1,15 +1,15 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import LockIcon from '@mui/icons-material/Lock';
-import {setUserToken} from '../app/api/login/route'
+import Cookies from 'js-cookie';
 export default function FormPropsTextFields() {
-    const [email, setEmail] = React.useState<string | undefined>('Email');
-    const [password, setPassword] = React.useState<string | undefined>('Password');
-
+    const [email, setEmail] = React.useState<string>('Email');
+    const [password, setPassword] = React.useState<string>('Password');
+    const searchParams = useSearchParams();
     const router = useRouter()
     async function handleLogin() {
         const data = { email: email, password: password }
@@ -22,10 +22,24 @@ export default function FormPropsTextFields() {
                 body: JSON.stringify(data),
             });
             const result = await response.json();
-            const userToken = result.accessToken;
+            const jwtToken = result.accessToken;
             const userId = result.userID;
             if (!result.error) {
-                router.push('/')
+                const res = await fetch("/api/login", {
+                    method: "POST",
+                    body: JSON.stringify({ email, jwtToken, userId }),
+                    headers: { "Content-Type": "application/json" },
+                });
+                const { success } = await res.json();
+
+                if (success) {
+                    router.push('/')
+                    router.refresh();
+                } else {
+                    // Make your shiny error handling with a great user experience
+                    alert("Login failed");
+                }
+                //router.push('/')
             }
             else {
                 console.log("error :", result)
