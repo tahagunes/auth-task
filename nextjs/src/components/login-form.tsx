@@ -5,11 +5,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import LockIcon from '@mui/icons-material/Lock';
-import Cookies from 'js-cookie';
+
 export default function FormPropsTextFields() {
     const [email, setEmail] = React.useState<string>('Email');
     const [password, setPassword] = React.useState<string>('Password');
-    const searchParams = useSearchParams();
     const router = useRouter()
     async function handleLogin() {
         const data = { email: email, password: password }
@@ -33,8 +32,9 @@ export default function FormPropsTextFields() {
                 const { success } = await res.json();
 
                 if (success) {
-                    router.push('/')
-                    router.refresh();
+                    // router.push('/')
+                    router.push('/');
+                    location.reload();
                 } else {
                     // Make your shiny error handling with a great user experience
                     alert("Login failed");

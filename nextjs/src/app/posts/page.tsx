@@ -1,10 +1,14 @@
 import PostsTable from "@/components/posts-table";
+import Link from "next/link";
 
 export default function Home() {
     return (
         <main>
-            <p style={{color:'red'}}>posts page</p>
-            <PostsTable/>
+            <div style={{ flexDirection: "row", backgroundColor: 'yellow' }}>
+                <p>posts page</p>
+                <Link style={{ paddingLeft: 10 }} href="/add-post">Posts</Link>
+            </div>
+            <PostsTable />
         </main>
     );
 }
