@@ -13,7 +13,11 @@ export default function FormPropsAddPostFields() {
     const [title, setTitle] = React.useState<string>('Title');
     const [description, setDescription] = React.useState<string>('Description');
     const [body, setBody] = React.useState<string>('Body');
-
+    const [value, setValue] = React.useState('yes');
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue((event.target as HTMLInputElement).value);
+      };
+      
     const router = useRouter()
     // async function handleLogin() {
     //     const data = { email: email, password: password }
@@ -54,26 +58,30 @@ export default function FormPropsAddPostFields() {
     //     }
 
     // }
+    function handleCancel() {
+        router.push('/posts');
+    }
     return (
         <Box
             component="form"
             sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                '& .MuiTextField-root': { m: 1, width: '50ch', height: '10ch' },
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
             }}
             noValidate
             autoComplete="off"
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
         >
-            <div style={{ flexDirection: 'column' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div>
+
                     <TextField
                         required
                         id="filled-required"
-                        label="Required"
-                        defaultValue="Title"
+                        label="Title"
+                        //defaultValue="Title"
                         variant="filled"
                         onChange={(e) => { setTitle(e.target.value); }}
                     />
@@ -82,8 +90,8 @@ export default function FormPropsAddPostFields() {
                     <TextField
                         required
                         id="filled-required"
-                        label="Required"
-                        defaultValue="Description"
+                        label="Description"
+                        //defaultValue="Description"
                         variant="filled"
                         onChange={(e) => { setDescription(e.target.value); }}
                     />
@@ -91,28 +99,34 @@ export default function FormPropsAddPostFields() {
                 <div>
                     <TextField
                         required
-                        id="filled-required"
-                        label="Required"
-                        defaultValue="body"
-                        variant="filled"                                           
+                        id="filled-multiline-static"
+                        label="Body"
+                        multiline
+                        rows={4}
+                        //defaultValue="Post content"
+                        variant="filled"
                         onChange={(e) => { setBody(e.target.value); }}
                     />
+                    
                 </div>
-                <div>
-                    <FormControl style={{ paddingLeft: 40, alignItems: 'center', justifyContent: 'center' }}>
+                <div >
+                    <FormControl style={{ marginTop:40,alignItems: 'center', justifyContent: 'center' }}>
                         <FormLabel id="demo-row-radio-buttons-group-label">Do you want to publish?</FormLabel>
                         <RadioGroup
                             row
                             aria-labelledby="demo-row-radio-buttons-group-label"
                             name="row-radio-buttons-group"
+                            onChange={handleChange}
                         >
-                            <FormControlLabel value="publishYes" control={<Radio />} label="Yes" />
-                            <FormControlLabel value="publishNo" control={<Radio />} label="No" />
+                            <FormControlLabel value='yes' control={<Radio />} label="Yes" />
+                            <FormControlLabel value='no' control={<Radio />} label="No" />
                         </RadioGroup>
                     </FormControl>
                 </div>
-                <Button style={{marginLeft:20,marginTop: 20, marginRight: 10 }} variant="contained">Cancel</Button>
-                <Button style={{marginLeft:15,marginTop: 20, marginRight: 10 }} variant="contained">Add Post</Button>
+                <div>
+                    <Button style={{ marginTop: 20, marginRight: 10 }} variant="contained" onClick={handleCancel}>Cancel</Button>
+                    <Button style={{ marginLeft: 15, marginTop: 20, marginRight: 10 }} variant="contained" >Add Post</Button>
+                </div>
             </div>
         </Box>
     );

@@ -6,7 +6,7 @@ export default function Home() {
         <main>
             <div style={{ flexDirection: "row", backgroundColor: 'yellow' }}>
                 <p>posts page</p>
-                <Link style={{ paddingLeft: 10 }} href="/add-post">Posts</Link>
+                <Link style={{ paddingLeft: 10 }} href="/add-post">Add Post</Link>
             </div>
             <PostsTable />
         </main>
