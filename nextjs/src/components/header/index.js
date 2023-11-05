@@ -6,25 +6,28 @@ export function Header() {
     const { auth, logout } = useAuth();
     const handleLogout = () => {
         logout();
-    };    
-    
+    };
+
 
     return (
         <header style={{ backgroundColor: 'red' }}>
             <div>
-                <Link href="/">Home</Link>
+                <nav>
+                    {auth ? (
+                        <div >
+                            <Link href="/">Home</Link>
+                            <Link style={{ paddingLeft: 10 }} href="/posts">Posts</Link>
+                            <Link style={{ paddingLeft: 10 }} href="/users">Users</Link>
+                            <Link style={{ paddingLeft: 10 }} onClick={handleLogout} href="/login">Log Out</Link>
+                        </div>
+                    ) : (
+                        <div>
+                            <Link href="/">Home</Link>
+                            <Link style={{ paddingLeft: 10 }} href="/login">Login</Link>
+                        </div>
+                    )}
+                </nav>
             </div>
-            <nav>
-                {auth  ? (
-                    <div style={{ flexDirection: "row" , padding: 10 }}>
-                        <Link style={{ paddingLeft: 10 }} href="/posts">Posts</Link>
-                        <Link style={{ paddingLeft: 10 }} href="/users">Users</Link>
-                        <Link style={{ paddingLeft: 10 }} onClick={handleLogout} href="/login">Log Out</Link>
-                    </div>
-                ) : (
-                    <Link href="/login">Login</Link>
-                )}
-            </nav>
         </header>
     );
 }
