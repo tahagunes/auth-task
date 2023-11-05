@@ -9,7 +9,7 @@ export class LoginDto {
     email: string;
 
     @IsNotEmpty()
-    @MinLength(6)
+    // @MinLength(6)
     @ApiProperty()
     password: string;
 }

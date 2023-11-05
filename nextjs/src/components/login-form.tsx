@@ -93,7 +93,7 @@ export default function FormPropsTextFields() {
                 <Button style={{ marginTop: 20, marginRight: 10 }} variant="contained" onClick={handleLogin}>Log in</Button>
             </div>
             <div style={{ marginTop: 10 }}>
-                <a style={{ marginRight: 10 }} href="/register">Don't have an account? Sign Up</a>
+                <a style={{ marginRight: 10 }} href="/add-user">Don't have an account? Sign Up</a>
                 <a style={{ marginLeft: 10 }} href="/recovery-password">Forgot password?</a>
             </div>
         </Box>

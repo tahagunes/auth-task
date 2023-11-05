@@ -43,6 +43,7 @@ export default function FormPropsAddPostFields() {
                         .then(async (response: any) => {
                             const result = await response.json()
                             console.log("res", result)
+                            router.push('/posts')
                         }).catch((err: any) => {
                             console.log("err", err)
                         });
